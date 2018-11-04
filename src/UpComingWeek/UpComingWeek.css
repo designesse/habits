@@ -1,0 +1,40 @@
+.App-UpComingWeek { margin: 2em 1em 2em 1em ; }
+
+.table-7-4-2 {
+  border-left: 2px solid #ddd;
+  display: flex;
+  margin-top: 1em;
+}
+
+.table-7-4-2 .col {
+  border-right: 2px solid #ddd;
+  color: #ccc;
+}
+.table-7-4-2 .col:first-child { color: #777; }
+
+
+@media (min-width: 1000px) {
+  html{ font-size: 20px; }
+
+  .table-7-4-2 .col { flex-grow: 1; }    
+}
+
+@media (min-width: 800px) and (max-width: 1000px){
+  html{ font-size: 18 px; }
+  
+  .table-7-4-2 { flex-wrap: wrap; }
+  .table-7-4-2 .col {
+    box-sizing: border-box;
+    width: 25%;
+  }    
+}
+
+@media (max-width: 800px){
+  html{ font-size: 16px; }
+    
+  .table-7-4-2 { flex-wrap: wrap; }
+  .table-7-4-2 .col {
+    box-sizing: border-box;
+    width: 50%;
+  }    
+}

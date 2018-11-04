@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import UpComingWeek from './UpComingWeek/UpComingWeek';
 
 class App extends Component {
   render() {
@@ -7,7 +8,7 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
         </header>
-        <h1>Habit Tracker</h1>
+        <UpComingWeek />
       </div>
     );
   }
