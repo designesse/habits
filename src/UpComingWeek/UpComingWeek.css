@@ -1,14 +1,10 @@
 .App-UpComingWeek { margin: 2em 0 ; }
 
 @media (min-width: 1000px) {
-  html{ font-size: 20px; }
-
   .table-7-4-2 .col { flex-grow: 1; }
 }
 
 @media (min-width: 800px) and (max-width: 1000px){
-  html{ font-size: 18 px; }
-
   .table-7-4-2 { flex-wrap: wrap; }
   .table-7-4-2 .col {
     box-sizing: border-box;
@@ -17,8 +13,6 @@
 }
 
 @media (max-width: 800px){
-  html{ font-size: 16px; }
-
   .table-7-4-2 { flex-wrap: wrap; }
   .table-7-4-2 .col {
     box-sizing: border-box;

@@ -22,7 +22,7 @@ class Habits extends Component {
           <div className="flex table-4-2-1">
           { this.state.habits.map((habits, i) =>
             <div key={i} className="col">
-              <div className="bold center"> { habits['type'] } </div>
+              <h3 className="bold center"> { habits['type'] } </h3>
               <ul className="no-list-style">
                 { habits['habits'].map((habit, j) =>
                   <li key={j}> { habit['name'] } </li>

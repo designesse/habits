@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto|Roboto+Slab');
+
+
 body {
   background-color: #eee;
   color: #777;
@@ -13,6 +16,12 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+div { font-family: 'Roboto', sans-serif; }
+h3 {
+  font-family: 'Roboto Slab', serif;
+  font-size: 1.1em;
 }
 
 .bold { font-weight: bold; }
@@ -39,15 +48,14 @@ code {
 }
 .upperc { text-transform: uppercase; }
 
-
 @media (min-width: 1000px) {
-  html{ font-size: 20px; }
+  html{ font-size: 16px; }
 }
 
 @media (min-width: 800px) and (max-width: 1000px){
-  html{ font-size: 18px; }
+  html{ font-size: 16px; }
 }
 
 @media (max-width: 800px){
-  html{ font-size: 16px; }
+  html{ font-size: 14px; }
 }

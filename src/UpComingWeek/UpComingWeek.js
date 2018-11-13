@@ -42,7 +42,7 @@ class UpComingWeek extends Component {
         <div className="flex table-7-4-2">
             { this.state.weekDaysHabits.map((daysHabit, i) =>
               <div className="col highlight-1" key={i}>
-                <span className="bold center"> { daysHabit.day} </span>
+                <h3 className="bold center"> { daysHabit.day} </h3>
                 <ul className="no-list-style">
                   { daysHabit.habits.map((habit, j) =>
                     <li key={j}> { habit.name } </li>
