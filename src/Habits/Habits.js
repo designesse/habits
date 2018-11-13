@@ -18,7 +18,7 @@ class Habits extends Component {
   render() {
     return (
       <div className="App-Habits">
-        <div className="bold upperc"> Habits </div>
+        <h2 className="bold upperc"> Habits </h2>
           <div className="flex table-4-2-1">
           { this.state.habits.map((habits, i) =>
             <div key={i} className="col">

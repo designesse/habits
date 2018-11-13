@@ -38,7 +38,7 @@ class UpComingWeek extends Component {
   render() {
     return (
       <div className="App-UpComingWeek">
-        <div className="bold upperc"> { this.state.monthHeader } </div>
+        <h2 className="bold upperc"> { this.state.monthHeader } </h2>
         <div className="flex table-7-4-2">
             { this.state.weekDaysHabits.map((daysHabit, i) =>
               <div className="col highlight-1" key={i}>
