@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto|Roboto+Slab');
 
-
 body {
   background-color: #f8f0f1;
   color: #553b42;
@@ -32,6 +31,7 @@ h3 {
   font-size: 1.1em;
 }
 
+.blurred { opacity: .2; }
 .bold { font-weight: bold; }
 .cap { text-transform: capitalize; }
 .center {
@@ -54,6 +54,7 @@ h3 {
   list-style: none;
   padding-left: 0;
 }
+.opaque { opacity: 1; }
 .upperc { text-transform: uppercase; }
 
 @media (min-width: 1000px) {
