@@ -2,46 +2,14 @@ import React, { Component } from 'react'
 import './UpComingWeek.css';
 import '../InputListItem/InputListItem';
 import InputListItem from '../InputListItem/InputListItem';
-import Constants from '../Constants';
 
 class UpComingWeek extends Component {
   constructor(props) {
     super(props);
 
-    var habits = props.habits;
-    var types = Constants.HABITSTYPES;
-    var weekDaysHabits = [];
-    var today = new Date();
-    var day = today;
-    var colDay = 0;
-    var weekDaysName = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    var monthsName = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
-    for (var i=0; i<7; i++) {
-      day = new Date(today.getTime() + 1000*60*60*24*i);
-      weekDaysHabits[i] = {
-        'day': weekDaysName[day.getDay()] + ' ' + day.getDate(),
-        'habits': []
-      }
-    }
-
-    for (var j=0; j<habits.length; j++) {
-      if (habits[j]['type'] === types['daily']) {
-        for (colDay=0; colDay<7; colDay++) {
-          weekDaysHabits[colDay]['habits'].push(this.formatHabit(habits[j], colDay));
-        }
-      }
-      else if (habits[j]['type'] === types['weekly']) {
-        colDay = habits[j]['weekDay'] - today.getDay() >= 0 ? habits[j]['weekDay'] - today.getDay() : habits[j]['weekDay'] - today.getDay() + 7;
-        weekDaysHabits[colDay]['habits'].push(this.formatHabit(habits[j], colDay));
-      }
-    }
-
-    var monthHeader = today.getMonth() === day.getMonth()? monthsName[today.getMonth()] : monthsName[today.getMonth()] + '/' + monthsName[day.getMonth()];
-
     this.state = {
-      'monthHeader': monthHeader,
-      'weekDaysHabits': weekDaysHabits,
+      'monthHeader': props.monthHeader,
+      'weekDaysHabits': props.weekDaysHabits,
     };
 
     this.formatHabit = this.formatHabit.bind(this);
