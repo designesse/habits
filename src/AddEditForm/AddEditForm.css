@@ -1,0 +1,18 @@
+.App-AddEditForm {
+  bottom: 0;
+  margin: 5%;
+  position: absolute;
+  top: 0;
+  width: 90%;
+}
+
+form {
+  background-color: #f8f0f1;
+  border: 2px solid #aa19c8;
+  box-sizing: border-box;
+  box-shadow: 3px 3px 9px #aa19c8;
+  margin: 5em auto;
+  max-width: 500px;
+  overflow: hidden;
+  padding: 2em;
+}

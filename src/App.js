@@ -12,7 +12,6 @@ class App extends Component {
 
     var habits = JSON.parse(localStorage.getItem('habits')) ? JSON.parse(localStorage.getItem('habits')) : [];
     var idHabit = JSON.parse(localStorage.getItem('idHabit')) ? Number(localStorage.getItem('idHabit')) : 0;
-
     var weekDaysHabits = [];
     var habitsByType = [];
     var today = new Date();
@@ -121,7 +120,7 @@ class App extends Component {
 
   addHabit(name, habitType, dayOfWeek, weekOfMonth, month) {
     var id = this.state.idHabit;
-    var habit = {'hid': id, 'name': name, 'type': habitType, 'weekDay': dayOfWeek, 'weekOfMonth': weekOfMonth, 'month': month,  'done': {}, 'due': {}, 'last': {}};
+    var habit = {'hid': id, 'name': name, 'type': habitType, 'weekDay': dayOfWeek, 'weekOfMonth': weekOfMonth, 'month': month};
     var habits = this.state.habits;
     habits.push(habit);
     this.setState({'idHabit': id+1, 'habits': habits, 'weekDaysHabits': this.addHabitCalendar(this.state.weekDaysHabits, habit), 'habitByTypes': this.addHabitByTypes(this.state.habitsByType, habit)});
