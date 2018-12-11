@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import UpComingWeek from './UpComingWeek/UpComingWeek';
+import Trackers from './Trackers/Trackers';
 import HabitsByType from './HabitsByType/HabitsByType';
 import AddButton from './AddButton/AddButton';
 import AddEditForm from './AddEditForm/AddEditForm';
@@ -12,6 +13,9 @@ class App extends Component {
 
     var habits = JSON.parse(localStorage.getItem('habits')) ? JSON.parse(localStorage.getItem('habits')) : [];
     var idHabit = JSON.parse(localStorage.getItem('idHabit')) ? Number(localStorage.getItem('idHabit')) : 0;
+    var trackers = JSON.parse(localStorage.getItem('trackers')) ? JSON.parse(localStorage.getItem('trackers')) : [];
+    var idTracker = JSON.parse(localStorage.getItem('idTracker')) ? Number(localStorage.getItem('idTracker')) : 0;
+
     var weekDaysHabits = [];
     var habitsByType = [];
     var today = new Date();
@@ -35,7 +39,7 @@ class App extends Component {
       }
     }
 
-    habits.forEach(function (habit, i,) {
+    habits.forEach(function (habit, i) {
       this.addHabitCalendar(weekDaysHabits, habit);
       this.addHabitByTypes(habitsByType, habit);
     }.bind(this));
@@ -45,6 +49,8 @@ class App extends Component {
     this.state = {
       'habits': habits,
       'idHabit': idHabit,
+      'trackers': trackers,
+      'idTracker': idTracker,
       'isDisplayedOverlay': false,
       'monthHeader': monthHeader,
       'weekDaysHabits': weekDaysHabits,
@@ -118,14 +124,29 @@ class App extends Component {
     isDisplayed ? this.setState({'isDisplayedOverlay': true}) : this.setState({'isDisplayedOverlay': false});
   }
 
-  addHabit(name, habitType, dayOfWeek, weekOfMonth, month) {
+  addHabit(name, habitType, dayOfWeek, weekOfMonth, month, isTracker) {
     var id = this.state.idHabit;
-    var habit = {'hid': id, 'name': name, 'type': habitType, 'weekDay': dayOfWeek, 'weekOfMonth': weekOfMonth, 'month': month};
+    var tid = isTracker ? this.state.idTracker : -1;
+    var habit = {'hid': id, 'name': name, 'type': habitType, 'weekDay': dayOfWeek, 'weekOfMonth': weekOfMonth, 'month': month, 'tid': tid};
     var habits = this.state.habits;
     habits.push(habit);
-    this.setState({'idHabit': id+1, 'habits': habits, 'weekDaysHabits': this.addHabitCalendar(this.state.weekDaysHabits, habit), 'habitByTypes': this.addHabitByTypes(this.state.habitsByType, habit)});
+    var update = {'idHabit': id+1, 'habits': habits, 'weekDaysHabits': this.addHabitCalendar(this.state.weekDaysHabits, habit), 'habitByTypes': this.addHabitByTypes(this.state.habitsByType, habit)};
+
+    if (isTracker) {
+      var today = new Date();
+      tid = this.state.idTracker;
+      var tracker = { 'tid': tid, 'name': name, 'start': {'day': today.getDate(), 'month': today.getMonth(), 'year': today.getFullYear()}, 'checksByMonths': [{ 'year': today.getFullYear(), 'month': today.getMonth(), 'days': []}] };
+      var trackers = this.state.trackers;
+      trackers.push(tracker);
+      update['trackers'] = trackers;
+      update['idTracker'] = tid + 1;
+    }
+
+    this.setState(update);
     localStorage.setItem('idHabit', id+1);
     localStorage.setItem('habits', JSON.stringify(habits));
+    localStorage.setItem('idTracker', tid+1);
+    localStorage.setItem('trackers', JSON.stringify(trackers));
   }
 
   render() {
@@ -135,6 +156,7 @@ class App extends Component {
           <header className="App-header"></header>
           <UpComingWeek habits={ this.state.habits } monthHeader={ this.state.monthHeader } weekDaysHabits={ this.state.weekDaysHabits} checkDone={ this.checkDone } />
           <AddButton item="habit" displayForm={ this.displayForm } isDisplayedOverlay={ this.state.isDisplayedOverlay }/>
+          <Trackers trackers={ this.state.trackers } />
           <HabitsByType habitsByType={ this.state.habitsByType } />
         </div>
         { this.state.isDisplayedOverlay ? <div id="overlay"></div> : ''}

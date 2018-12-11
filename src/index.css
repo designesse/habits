@@ -41,6 +41,8 @@ h3 {
   font-size: 1.1em;
 }
 
+h4 { color: #031a68; }
+
 #overlay {
   background-color: white;
   bottom: 0;
@@ -75,6 +77,7 @@ h3 {
 .flex .col.highlight-1:not(:first-child) { opacity: .2; }
 .inl-b { display: inline-block; }
 .input-min-w { min-width: 100px; }
+.left { float: left; }
 .marg-b { margin-bottom: 1.5em; }
 .marg-r { margin-right: .5em; }
 .marg-ver {
@@ -87,7 +90,10 @@ h3 {
   padding-left: 0;
 }
 .opaque { opacity: 1; }
+.overflow-hide { overflow: hidden; }
+.padding-hor { padding-left: .2em; padding-right: .2em; }
 .right { float: right; }
+.right-border { border-right: 3px solid #031a68; }
 .serif { font-family: 'Roboto Slab', serif; }
 .upperc { text-transform: uppercase; }
 ::placeholder {
