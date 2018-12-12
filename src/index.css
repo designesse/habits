@@ -74,7 +74,7 @@ h4 { color: #031a68; }
   color: #553b42;
   padding: 1em;
 }
-.flex .col.highlight-1:not(:first-child) { opacity: .2; }
+.flex .col.highlight-1:not(:first-child) h3 { opacity: .2; }
 .inl-b { display: inline-block; }
 .input-min-w { min-width: 100px; }
 .left { float: left; }

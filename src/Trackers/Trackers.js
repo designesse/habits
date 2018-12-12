@@ -14,7 +14,32 @@ class Trackers extends Component {
 
   formatTrackers(trackers) {
     var dayCheckHabits = [];
-      trackers.forEach(function (trackerHabit, i) {
+    trackers.forEach(function (trackerHabit, i) {
+      var today = new Date();
+      var lastMonth = trackerHabit['checksByMonths'][0]['month'];
+      var numMissedMonths =0;
+
+      if ( trackerHabit['checksByMonths'][0]['year'] !== today.getFullYear() ) {
+        var newMonth = lastMonth;
+        var lastYear, newYear;
+        lastYear = newYear = trackerHabit['checksByMonths'][0]['year'];
+        numMissedMonths = 12*(today.getFullYear()-lastYear) + (today.getMonth()-lastMonth);
+        for (var iAddMonth=0; iAddMonth<numMissedMonths; iAddMonth++) {
+          newMonth++;
+          if ( newMonth>11 ) {
+            newMonth = 0;
+            newYear++;
+          }
+          trackerHabit['checksByMonths'].unshift({ 'year': newYear, 'month': newMonth, 'days': []});
+        }
+      }
+      else if ( trackerHabit['checksByMonths'][0]['month'] !== today.getMonth() ) {
+        numMissedMonths = today.getMonth()-trackerHabit['checksByMonths'][0]['month'];
+        for (var jAddMonth=0; jAddMonth<numMissedMonths; jAddMonth++) {
+          trackerHabit['checksByMonths'].unshift({ 'year': today.getFullYear(), 'month': lastMonth+jAddMonth+1, 'days': []});
+        }
+      }
+
       var numMonths = trackerHabit['checksByMonths'].length;
       var checkHabit = [];
       for (var iMonth=0; iMonth<numMonths; iMonth++) {
