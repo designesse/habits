@@ -18,8 +18,7 @@ button {
   color: #f8f0f1;
   display: inline-block;
   font-weight: bold;
-  margin: 1em 1em 2em 0;
-  padding: .5em;
+  padding: .3em;
 }
 
 code {
@@ -28,6 +27,17 @@ code {
 }
 
 div { font-family: 'Roboto', sans-serif; }
+
+form {
+  background-color: #f8f0f1;
+  border: 2px solid #aa19c8;
+  box-sizing: border-box;
+  box-shadow: 3px 3px 9px #aa19c8;
+  margin: 5em auto;
+  max-width: 500px;
+  overflow: hidden;
+  padding: 2em;
+}
 
 h2 {
   color: #aa19c8;
@@ -80,6 +90,7 @@ h4 { color: #031a68; }
   color: #553b42;
 }
 .flex .col.highlight-1:not(:first-child) h3 { opacity: .2; }
+.font-l { font-size: 14px; }
 .inl-b { display: inline-block; }
 .input-min-w { min-width: 100px; }
 .left { float: left; }
@@ -96,6 +107,13 @@ h4 { color: #031a68; }
 }
 .opaque { opacity: 1; }
 .overflow-hide { overflow: hidden; }
+.overlay {
+  bottom: 0;
+  margin: 5%;
+  position: absolute;
+  top: 0;
+  width: 90%;
+}
 .padding-hor { padding-left: .2em; padding-right: .2em; }
 .right { float: right; }
 .right-border { border-right: 3px solid #031a68; }

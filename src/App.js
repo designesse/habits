@@ -5,6 +5,7 @@ import Trackers from './Trackers/Trackers';
 import HabitsByType from './HabitsByType/HabitsByType';
 import AddButton from './AddButton/AddButton';
 import AddEditForm from './AddEditForm/AddEditForm';
+import DeleteForm from './DeleteForm/DeleteForm';
 
 class App extends Component {
   constructor(props) {
@@ -20,12 +21,13 @@ class App extends Component {
       'idHabit': idHabit,
       'trackers': trackers,
       'idTracker': idTracker,
-      'isDisplayedOverlay': false,
+      'addEditDeleteOverlay': {'status': false, 'action': 'add', 'type': 'habit', 'hid': -1, 'name': ''}
     };
 
     this.checkDone = this.checkDone.bind(this);
-    this.displayForm = this.displayForm.bind(this);
+    this.displayOverlay = this.displayOverlay.bind(this);
     this.addHabit = this.addHabit.bind(this);
+    this.deleteHabit = this.deleteHabit.bind(this);
   }
 
   checkDone(hid, checked) {
@@ -56,8 +58,8 @@ class App extends Component {
     localStorage.setItem('trackers', JSON.stringify(trackers));
   }
 
-  displayForm(isDisplayed) {
-    isDisplayed ? this.setState({'isDisplayedOverlay': true}) : this.setState({'isDisplayedOverlay': false});
+  displayOverlay(isDisplayed, action='add', type='habit', hid=-1, name="") {
+    this.setState({'addEditDeleteOverlay': {'status': isDisplayed, 'action': action, 'type': type, 'hid': hid, 'name': name}});
   }
 
   addHabit(name, habitType, dayOfWeek) {
@@ -83,18 +85,34 @@ class App extends Component {
     localStorage.setItem('trackers', JSON.stringify(trackers));
   }
 
+  deleteHabit(hid) {
+    var habits = this.state.habits;
+    var trackers = this.state.trackers;
+    for (var i=0; i<habits.length; i++) {
+      if (habits[i]['hid'] === hid) {
+        habits.splice(i, 1);
+        trackers.splice(i, 1);
+        break;
+      }
+    }
+    this.setState({'habits': habits, 'trackers': trackers});
+    localStorage.setItem('habits', JSON.stringify(habits));
+    localStorage.setItem('trackers', JSON.stringify(trackers));
+  }
+
   render() {
     return (
       <div className="App">
         <div id="page">
           <header className="App-header"></header>
           <UpComingWeek habits={ this.state.habits } trackers={ this.state.trackers } checkDone={ this.checkDone } />
-          <AddButton item="habit" displayForm={ this.displayForm } isDisplayedOverlay={ this.state.isDisplayedOverlay }/>
           <Trackers trackers={ this.state.trackers } />
-          <HabitsByType habits={ this.state.habits } />
+          <AddButton item="habit" displayOverlay={ this.displayOverlay } />
+          <HabitsByType habits={ this.state.habits } displayOverlay={ this.displayOverlay }/>
         </div>
-        { this.state.isDisplayedOverlay ? <div id="overlay"></div> : ''}
-        { this.state.isDisplayedOverlay ? <AddEditForm displayForm={ this.displayForm } addHabit={ this.addHabit } /> : ''}
+        { this.state.addEditDeleteOverlay['status'] ? <div id="overlay"></div> : ''}
+        { this.state.addEditDeleteOverlay['status'] && this.state.addEditDeleteOverlay['action']==='add' && <AddEditForm displayOverlay={ this.displayOverlay } addHabit={ this.addHabit } /> }
+        { this.state.addEditDeleteOverlay['status'] && this.state.addEditDeleteOverlay['action']==='remove' && <DeleteForm displayOverlay={ this.displayOverlay } deleteHabit={ this.deleteHabit } hid={ this.state.addEditDeleteOverlay['hid'] } name={ this.state.addEditDeleteOverlay['name']} /> }
       </div>
     );
   }

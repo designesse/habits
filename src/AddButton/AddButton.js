@@ -6,17 +6,17 @@ class AddButton extends Component {
 
     this.state = { 'item': this.props.item };
 
-    this.displayForm = this.displayForm.bind(this);
+    this.displayOverlay = this.displayOverlay.bind(this);
   }
 
-  displayForm() {
-    this.props.displayForm(true);
+  displayOverlay() {
+    this.props.displayOverlay(true, 'add', 'habit');
   }
 
   render() {
     return (
-      <div className="App-AddButton">
-        <button className="upperc" onClick={ this.displayForm }>+ Add { this.state.item }</button>
+      <div className="App-AddButton marg-ver">
+        <button className="font-l upperc" onClick={ this.displayOverlay }>+ Add { this.state.item }</button>
       </div>
     );
   }

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './HabitsByType.css';
 import Constants from '../Constants';
 
-
 class HabitsByType extends Component {
   constructor(props) {
     super(props);
@@ -12,6 +11,7 @@ class HabitsByType extends Component {
     };
 
     this.formatHabitsByType = this.formatHabitsByType.bind(this);
+    this.displayOverlay = this.displayOverlay.bind(this);
   }
 
   formatHabitsByType(habits) {
@@ -32,6 +32,10 @@ class HabitsByType extends Component {
     return habitsByType;
   }
 
+  displayOverlay(hid, name) {
+    this.props.displayOverlay(true, 'remove', 'habit', hid, name);
+  }
+
   render() {
     var habitsByType = this.formatHabitsByType(this.state.habits);
 
@@ -44,7 +48,7 @@ class HabitsByType extends Component {
               <h3 className="bold center"> { habits['type'] } </h3>
               <ul className="box-item-list-style no-list-style">
                 { habits['habits'].map((habit, j) =>
-                  <li key={j}> { habit['name'] } </li>
+                  <li key={j}> { habit['name'] } <button className="right" onClick={() => this.displayOverlay(habit['hid'], habit['name']) }>x</button></li>
                 )}
               </ul>
             </div>

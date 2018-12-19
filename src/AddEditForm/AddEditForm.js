@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import './AddEditForm.css';
 import Constants from '../Constants';
 
 class AddEditForm extends Component {
@@ -38,13 +37,13 @@ class AddEditForm extends Component {
     }
     else {
       this.props.addHabit(this.state.name, this.state.habitType, this.state.weekDay);
-      this.props.displayForm(false);
+      this.props.displayOverlay(false);
     }
   }
 
   render() {  
     return (
-      <div className="App-AddEditForm">
+      <div className="App-AddEditForm overlay">
         <form onSubmit={this.handleSubmit}>
           <h2> Add habit </h2>
           
@@ -68,7 +67,7 @@ class AddEditForm extends Component {
               </span> : ''}
           </div>
 
-          <button onClick={() => this.props.displayForm(false)}> Cancel </button>
+          <button onClick={() => this.props.displayOverlay(false)}> Cancel </button>
           <button className="upperc right" type="submit" value="Submit"> Add </button>
 
         </form>
