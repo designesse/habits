@@ -89,7 +89,7 @@ class UpComingWeek extends Component {
             { upComingWeek['habits'].map((daysHabit, i) =>
               <div className="col highlight-1" key={i}>
                 <h3 className="bold center"> { daysHabit.day} </h3>
-                <ul className="no-list-style">
+                <ul className="box-item-list-style no-list-style">
                   { daysHabit.habits.map((habit, j) =>
                     <InputListItem key={j} habit={ habit } checkDone={ this.props.checkDone }/>
                   )}

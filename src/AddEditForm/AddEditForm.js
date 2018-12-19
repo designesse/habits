@@ -11,13 +11,11 @@ class AddEditForm extends Component {
       'name': '',
       'habitType': 0,
       'weekDay': 0,
-      'isTracker': false
     }
 
     this.updateName = this.updateName.bind(this);
     this.updateType = this.updateType.bind(this);
     this.updateDay = this.updateDay.bind(this);
-    this.toggleIsTracker = this.toggleIsTracker.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -33,17 +31,13 @@ class AddEditForm extends Component {
     this.setState({'weekDay': Number(event.target.value)});
   }
 
-  toggleIsTracker(event) {
-    this.setState({'isTracker': !this.state.isTracker});
-  }
-
   handleSubmit(event) {
     event.preventDefault();
     if (this.state.name.length === 0) {
       this.setState({isNameEmptyWarning: true});
     }
     else {
-      this.props.addHabit(this.state.name, this.state.habitType, this.state.weekDay, this.state.weekOfMonth, this.state.month, this.state.isTracker);
+      this.props.addHabit(this.state.name, this.state.habitType, this.state.weekDay);
       this.props.displayForm(false);
     }
   }
@@ -72,8 +66,6 @@ class AddEditForm extends Component {
                     )}
                 </select>
               </span> : ''}
-
-              <div className="marg-ver"><input className="marg-r" type="checkbox" name="tid" checked={this.state.isTracker ? true : false} onChange={this.toggleIsTracker} /><label className="blue bold inl-b marg-r serif"> Add tracker </label></div>
           </div>
 
           <button onClick={() => this.props.displayForm(false)}> Cancel </button>

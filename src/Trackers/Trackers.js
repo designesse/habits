@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Trackers.css';
+import Constants from '../Constants';
 
 class Trackers extends Component {
   constructor(props) {
@@ -16,9 +17,13 @@ class Trackers extends Component {
     var dayCheckHabits = [];
     trackers.forEach(function (trackerHabit, i) {
       var today = new Date();
+      var todayDate = today.getDate();
+      var startDate = trackerHabit['start']['day'];
       var lastMonth = trackerHabit['checksByMonths'][0]['month'];
-      var numMissedMonths =0;
+      var numMissedMonths = 0;
+      var types = Constants.HABITSTYPES;
 
+      // Fill in trackers if months are missing from last tracker to today.
       if ( trackerHabit['checksByMonths'][0]['year'] !== today.getFullYear() ) {
         var newMonth = lastMonth;
         var lastYear, newYear;
@@ -47,22 +52,67 @@ class Trackers extends Component {
         var checkedDays = checksByMonth['days'];
         var daysInMonth = (new Date(checksByMonth['year'], checksByMonth['month']+1, 0)).getDate();
         var checks = [];
-        for (var iDay=0; iDay<daysInMonth; iDay++) {
-          checks.push({'date': iDay+1, 'isChecked': false});
-        }
 
-        for (var iCheckDay=0; iCheckDay<checkedDays.length; iCheckDay++) {
-          checks[checkedDays[iCheckDay]-1]['isChecked'] = true;
-        }
+        switch (trackerHabit['type']) {
+          case types['daily'] :
+            // Fill in calendar days.
+            for (var iDay=0; iDay<daysInMonth; iDay++) {
+              checks.push({'date': iDay+1, 'isChecked': false});
+            }
 
-       if (iMonth === 0) {
-          var todayDate = (new Date()).getDate();
-          checks.splice(-daysInMonth+todayDate, daysInMonth-todayDate);
-        }
-        if (iMonth === numMonths-1) {
-          var startDate = trackerHabit['start']['day'];
-          checks.splice(0, startDate-1);
-        }
+            // Fill in checked days.
+            for (var iCheckDay=0; iCheckDay<checkedDays.length; iCheckDay++) {
+              checks[checkedDays[iCheckDay]-1]['isChecked'] = true;
+            }
+
+            // Remove days after today.
+            if (iMonth === 0) {
+              checks.splice(-daysInMonth+todayDate, daysInMonth-todayDate);
+            }
+            // Remove days before start date.
+            if (iMonth === numMonths-1) {
+              checks.splice(0, startDate-1);
+            }
+            break;
+
+          case types['weekly'] :
+            // Fill in weekly calendar days, checked or not.
+            var firstDay = (new Date(checksByMonth['year'], checksByMonth['month'], 1)).getDay();
+            var weekDay = trackerHabit['weekDay'] - firstDay < 0 ? trackerHabit['weekDay'] - firstDay + 7 : trackerHabit['weekDay'] - firstDay;
+            weekDay++;
+            var iCheckWeeklyDay = 0;
+            var numCheckedDays = checkedDays.length;
+
+            while (weekDay <= daysInMonth) {
+              var isChecked = false;
+              if (iCheckWeeklyDay < numCheckedDays && weekDay === checkedDays[iCheckWeeklyDay]) {
+                isChecked = true;
+                iCheckWeeklyDay++;
+              }
+              checks.push({'date': weekDay, 'isChecked': isChecked});
+              weekDay += 7;
+            }
+
+            // Remove days after today.
+            if (iMonth === 0) {
+              while (checks[checks.length-1]['date']>todayDate) {
+                checks.pop();
+              }
+            }
+
+            // Remove days before start date.
+            if (iMonth === numMonths-1) {
+              while (checks.length>0 && checks[0]['date']<startDate) {
+                checks.shift();
+              }
+            }
+
+            break;
+
+          default: break;
+          }
+
+
         checkHabit.push({'month': checksByMonth['month'], 'days': checks});
       }
       dayCheckHabits.push({'name': trackerHabit['name'], 'checksByMonths': checkHabit});

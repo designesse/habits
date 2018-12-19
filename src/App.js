@@ -60,23 +60,21 @@ class App extends Component {
     isDisplayed ? this.setState({'isDisplayedOverlay': true}) : this.setState({'isDisplayedOverlay': false});
   }
 
-  addHabit(name, habitType, dayOfWeek, weekOfMonth, month, isTracker) {
+  addHabit(name, habitType, dayOfWeek) {
     var id = this.state.idHabit;
-    var tid = isTracker ? this.state.idTracker : -1;
-    var habit = {'hid': id, 'name': name, 'type': habitType, 'weekDay': dayOfWeek, 'weekOfMonth': weekOfMonth, 'month': month, 'tid': tid};
+    var tid = this.state.idTracker;
+    var habit = {'hid': id, 'name': name, 'type': habitType, 'weekDay': dayOfWeek, 'tid': tid};
     var habits = this.state.habits;
     habits.push(habit);
     var update = {'idHabit': id+1, 'habits': habits};
 
-    if (isTracker) {
-      var today = new Date();
-      tid = this.state.idTracker;
-      var tracker = { 'tid': tid, 'hid': id, 'name': name, 'start': {'day': today.getDate(), 'month': today.getMonth(), 'year': today.getFullYear()}, 'checksByMonths': [{ 'year': today.getFullYear(), 'month': today.getMonth(), 'days': []}] };
-      var trackers = this.state.trackers;
-      trackers.push(tracker);
-      update['trackers'] = trackers;
-      update['idTracker'] = tid + 1;
-    }
+    var today = new Date();
+    tid = this.state.idTracker;
+    var tracker = { 'tid': tid, 'hid': id, 'name': name, 'type': habitType, 'weekDay': dayOfWeek, 'start': {'day': today.getDate(), 'month': today.getMonth(), 'year': today.getFullYear()}, 'checksByMonths': [{ 'year': today.getFullYear(), 'month': today.getMonth(), 'days': []}] };
+    var trackers = this.state.trackers;
+    trackers.push(tracker);
+    update['trackers'] = trackers;
+    update['idTracker'] = tid + 1;
 
     this.setState(update);
     localStorage.setItem('idHabit', id+1);

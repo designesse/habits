@@ -1,9 +1,9 @@
 @media (min-width: 800px) {
+  .table-4-2-1 { width: 50%; }
   .table-4-2-1 .col { flex-grow: 1; }
 }
 
 @media (max-width: 800px){
-  .table-4-2-1 { flex-wrap: wrap; }
   .table-4-2-1 .col {
     box-sizing: border-box;
     width: 50%;

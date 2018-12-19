@@ -55,9 +55,15 @@ h4 { color: #031a68; }
 
 #page { margin: 1em; }
 
+.blue { color: #031a68; }
 .blurred { opacity: .2; }
 .bold { font-weight: bold; }
-.blue { color: #031a68; }
+.box-item-list-style li {
+  border: 2px solid #ddd;
+  margin: .5em;
+  padding: .5em;
+
+}
 .cap { text-transform: capitalize; }
 .center {
   display: block;
@@ -72,7 +78,6 @@ h4 { color: #031a68; }
 .flex .col {
   border-right: 2px solid #ddd;
   color: #553b42;
-  padding: 1em;
 }
 .flex .col.highlight-1:not(:first-child) h3 { opacity: .2; }
 .inl-b { display: inline-block; }
